@@ -1,0 +1,5 @@
+[Namespaces]
+USER=ECPDATA,USER
+
+[config]
+MaxServerConn=10

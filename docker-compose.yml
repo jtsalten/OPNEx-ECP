@@ -1,0 +1,92 @@
+version: '3.6'
+services:
+  server:
+    hostname: server
+    build: 
+      context: ./build
+      dockerfile: DockerfileServer
+    image: ecpserver:latest
+    container_name: ecpserver
+    restart: always
+    ports: 
+      - 1972
+      - 52773
+      - 53773
+    environment:
+      - ISC_CPF_MERGE_FILE=/opt/irisapp/config/ECPserver.cpf
+    volumes:
+      - ./:/opt/irisapp
+  client:
+    hostname: client
+    build:
+      context: ./build
+      dockerfile: DockerfileClient
+    image: ecpclient:latest
+    container_name: ecpclient1
+    restart: always
+    depends_on:
+      - server
+    ports: 
+      - 1972
+      - 52773
+      - 53773
+    environment:
+      - ISC_CPF_MERGE_FILE=/opt/irisapp/config/ECPclient.cpf
+    volumes:
+      - ./:/opt/irisapp
+  client2:
+    hostname: client2
+    image: ecpclient:latest
+    container_name: ecpclient2
+    restart: always
+    depends_on:
+      - server
+      - client
+    ports: 
+      - 1972
+      - 52773
+      - 53773
+    environment:
+      - ISC_CPF_MERGE_FILE=/opt/irisapp/config/ECPclient.cpf
+    volumes:
+      - ./:/opt/irisapp
+  client3:
+    hostname: client3
+    image: ecpclient:latest
+    container_name: ecpclient3
+    restart: always
+    depends_on:
+      - server
+      - client2
+    ports: 
+      - 1972
+      - 52773
+      - 53773
+    environment:
+      - ISC_CPF_MERGE_FILE=/opt/irisapp/config/ECPclient.cpf
+    volumes:
+      - ./:/opt/irisapp
+  webserver:
+    hostname: webserver
+    image: containers.intersystems.com/intersystems/webgateway:2021.2.0.617.0
+    container_name: loadbalancer
+    init: true
+    restart: on-failure
+    depends_on:
+      - server
+      - client
+      - client2
+      - client3
+    ports:
+      - '20080:80'
+    volumes:
+      - webconfig:/config.d
+      - ./webgatewayconfig:/websetup
+    environment:
+      - ISC_DATA_DIRECTORY=/config.d
+      - ISC_CSP_INI_FILE=/websetup/CSP.ini
+      - ISC_CSP_CONF_FILE=/websetup/CSP.conf
+    command: 
+      - /bin/bash -c "/configHttpd.sh && apache2ctl start"
+volumes:
+  webconfig: ~

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+  <Document name="opnex-mmodel.ZPM">
+    <Module>
+      <Name>opnex-mmodel</Name>
+      <Version>0.0.1</Version>
+      <Packaging>module</Packaging>
+      <SourcesRoot>src</SourcesRoot>
+      <Resource Name="OPNEx.PKG"/>
+      <CSPApplication 
+        Url="/multimodel"
+        Path="/src"
+        Recurse="1"
+        Directory="{$cspdir}/multimodel" 
+        MatchRoles=":%ALL"
+        PasswordAuthEnabled="1"
+        UnauthenticatedEnabled="1"
+        DispatchClass="OPNEx.MModel.RESTserver"
+        ServeFiles="1"
+        CookiePath="/multimodel"
+        UseCookies="2"
+       />
+    </Module>
+  </Document>
+</Export>

@@ -1,0 +1,11 @@
+[ECPServers]
+DATASERVER=server,1972
+
+[Databases]
+ECPDATA=/usr/irissys/mgr/ecpdata/,DATASERVER
+
+[Namespaces]
+USER=ECPDATA,USER
+ 
+[config]
+MaxServers=2

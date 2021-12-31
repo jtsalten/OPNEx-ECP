@@ -1,0 +1,55 @@
+ROUTINE zECPinit [Type=MAC]
+zECPinit ; setup at startup
+	zn "%SYS"
+	set file="/etc/hostname"
+	open file::0 else  open 1 use 1 write "--> no hostname" close 1 quit
+	use file read host close file
+	open 1 use 1 write "--> run setup for hostname: "_host close 1
+
+	// Expect just one server called: server. Client instances' name should start by literal "client" 
+	do $case(host,"server":server,:$case(host?1"client".(1A,1N),1:client,:oops))
+	
+	quit
+oops				
+	open 1 use 1 write "--> OOPS: wrong hostname: "_host close 1
+	quit
+server
+	/*
+	//TBD - If needed, here we could add actions to do during server starting"
+	*/
+	quit
+client
+	open 1 use 1
+	write !,"   --> ECP Client ["_host_"] Starting..."
+	close 1
+	set server="DATASERVER"
+wait5
+	set sc=##class(SYS.ECP).ServerAction(server,3,5) ; normal + wait 5 sec 
+    set state=##class(SYS.ECP).GetServerConnState(server)
+	o 1 u 1 write !,"    --> ECP Server status (5 = Normal): "_state c 1
+	if (state'=5) && $i(hang) && (hang<60) 
+	{
+		open 1 use 1 write "    --> ECP wait "_(hang*5)_" sec" 
+		close 1 
+		hang 5 
+		goto wait5
+	}
+	if state-5 
+	{
+		set msg=$case(state,
+	        -2:"Invalid connection name",
+	        -1:"Invalid",
+	         0:"Initializing",
+	         1:"Not Connected",
+	         2:"Connection in Progress",
+	         3:"Connection Failed",
+	         4:"Disabled",
+	         5:"Normal",
+	         6:"Trouble",
+	         7:"Recovery",
+	          :"unknown")
+  	 	open 1 use 1 write "    --> ECP Server status "_state_" "_msg
+  	 	close 1 
+		quit
+	}
+	quit

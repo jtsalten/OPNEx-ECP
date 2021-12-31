@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "5555a175-ece3-4cc6-aa20-03eff835796d",
+		"name": "MultiModel ECP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Busca Proveedor por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20080/multimodel/busca/id/20090",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"busca",
+						"id",
+						"20090"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registra Nuevo Proveedor Full",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20080/multimodel/registro/PRO001/B12345678/Zamora/48001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"registro",
+						"PRO001",
+						"B12345678",
+						"Zamora",
+						"48001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registra Nuevo Proveedor Desc+CIF",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20080/multimodel/registro/Proveedor 002/B11223344",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"registro",
+						"Proveedor 002",
+						"B11223344"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borra un Proveedor por ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20080/multimodel/elimina/id/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"elimina",
+						"id",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registra Nuevo JSON",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"Descripcion\":\"Proveedor 003 - json\",\r\n\"CIF\":\"B00011122\",\r\n\"Direccion\":{\"Ciudad\":\"Albacete\",\"CodPostal\":\"02230\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20080/multimodel/registro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifica via JSON",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Codigo\": 2,\r\n    \"Descripcion\": \"Proveedor 003 - MODIFICADO json\",\r\n    \"Direccion\": {\r\n        \"Ciudad\": \"Madrigueras\",\r\n        \"Pais\": \"España\",\r\n        \"CodPostal\": \"02230\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20080/multimodel/modifica",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"modifica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genera Registros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20080/multimodel/genera/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"genera",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cuenta Proveedores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20080/multimodel/cuenta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"cuenta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Echo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20080/multimodel/echo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20080",
+					"path": [
+						"multimodel",
+						"echo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

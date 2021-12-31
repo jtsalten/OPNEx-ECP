@@ -1,0 +1,33 @@
+ARG IMAGE=containers.intersystems.com/intersystems/iris:2021.2.0.617.0
+ARG TYPE=client
+#ARG IMAGE=containers.intersystems.com/intersystems/iris:2020.1.1.408.0
+FROM $IMAGE
+USER root   
+
+COPY  ECP_iris.key /usr/irissys/mgr/iris.key
+
+WORKDIR /opt/irisapp
+
+RUN chmod 666 /usr/irissys/mgr/iris.key \
+    && chown irisowner:irisowner /opt/irisapp \
+    && rm /usr/irissys/mgr/messages.log    
+
+USER irisowner
+
+# Copy modules and code to include - iris-script will use it to load and compile
+COPY ./zpm ./zpm
+COPY ./ecpsetup ./ecpsetup
+#Whatever ObjectScript code you copy below src will be loaded and compiled (check iris-sript.mac)
+COPY ./src ./src
+
+#Samples OPNEx-MMODEL (here you can add your own apps - if so, change iris-script accordingly)
+COPY ./opnex-mmodel ./opnex-mmodel
+
+COPY ./irissession.sh ./irissession.sh
+COPY iris-script.mac iris-script.mac
+
+SHELL [ "./irissession.sh" ]
+
+RUN \
+Do $system.OBJ.Load("/opt/irisapp/iris-script.mac","ck") \
+set sc = $$^irisscript("server")

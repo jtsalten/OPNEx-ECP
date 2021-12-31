@@ -1,0 +1,56 @@
+ROUTINE irisscript [Type=MAC]
+irisscript(type)
+  do Init()
+  return $case($zconvert($get(type,""),"l"),"server":$$Server(),"client":$$Client(),:1)
+Init()
+    zn "%SYS"
+    write !,"Enabling ECP..."
+    set ecp="%service_ecp"
+    set set("Enabled")=1
+    set sc=##class(Security.Services).Modify(ecp,.set)
+
+    write !,"Loading ZSTART code..."
+    Do $System.OBJ.ImportDir("/opt/irisapp/ecpsetup",,"cuk",,1)
+    return 1
+Server()
+    write !,"Creating DB ECPDATA..."
+    set tDBname = "ECPDATA"
+    set Properties("Directory")="/usr/irissys/mgr/ecpdata"
+    set Properties("MountAtStartup")=1
+    set Properties("MountRequired")=1	
+    if '##class(%File).DirectoryExists($get(Properties("Directory")))
+    {
+        write !,"   --> Creating ecpdata directory..."
+        do ##class(%File).CreateDirectory($get(Properties("Directory")),.tSC)
+        write !,"      .."_tSC
+    }
+    set tDB = ##class(SYS.Database).%New()
+    set tDB.Directory = $get(Properties("Directory"))
+    set tSC = tDB.%Save()
+    set tSC = tDB.Mount()
+    write !,"Configuring ecpdata DDBB in iris.cpf..."
+    set sc=##class(Config.Databases).Create(tDBname,.Properties)
+
+    // OPTIONAL FROM HERE ON
+    // Load ZPM
+    ZN "USER"
+    write !,"Loading ZPM module..."
+    Do $System.OBJ.LoadDir("/opt/irisapp/zpm/","cuk")
+    return 1
+Client()
+    // OPTIONAL FROM HERE ON
+    ZN "USER"
+    write !,"Loading ZPM module..."
+    Do $System.OBJ.LoadDir("/opt/irisapp/zpm/","cuk")
+
+    write !,"Installing additional modules in USER..."
+    zpm "install webterminal -v":1
+    zpm "install restforms2 -v":1 
+    zpm "install restforms2-ui -v":1 
+    
+    write !,"Installing OPNEX-MMODEL sample... Here you could add your own apps..."
+    zpm "load /opt/irisapp/opnex-mmodel -v":1
+    write !,"Loading ObjectScript code from ./src (if any)..."
+    Do $System.OBJ.ImportDir("/opt/irisapp/src",,"cuk",,1)
+    write !,"DONE!"
+    return 1
