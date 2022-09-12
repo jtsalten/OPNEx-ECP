@@ -7,6 +7,7 @@ services:
       dockerfile: DockerfileServer
     image: ecpserver:latest
     container_name: ecpserver
+    command: --check-caps false
     restart: always
     ports: 
       - 1972
@@ -23,6 +24,7 @@ services:
       dockerfile: DockerfileClient
     image: ecpclient:latest
     container_name: ecpclient1
+    command: --check-caps false
     restart: always
     depends_on:
       - server
@@ -38,6 +40,7 @@ services:
     hostname: client2
     image: ecpclient:latest
     container_name: ecpclient2
+    command: --check-caps false
     restart: always
     depends_on:
       - server
@@ -54,6 +57,7 @@ services:
     hostname: client3
     image: ecpclient:latest
     container_name: ecpclient3
+    command: --check-caps false
     restart: always
     depends_on:
       - server
@@ -87,6 +91,7 @@ services:
       - ISC_CSP_INI_FILE=/websetup/CSP.ini
       - ISC_CSP_CONF_FILE=/websetup/CSP.conf
     command: 
-      - /bin/bash -c "/configHttpd.sh && apache2ctl start"
+      - --check-caps false
+      - /bin/bash -c "/configHttpd.sh && apache2ctl start" 
 volumes:
   webconfig: ~
