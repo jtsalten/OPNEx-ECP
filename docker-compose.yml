@@ -91,7 +91,6 @@ services:
       - ISC_CSP_INI_FILE=/websetup/CSP.ini
       - ISC_CSP_CONF_FILE=/websetup/CSP.conf
     command: 
-      - --check-caps false
       - /bin/bash -c "/configHttpd.sh && apache2ctl start" 
 volumes:
   webconfig: ~
