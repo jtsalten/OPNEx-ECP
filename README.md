@@ -89,7 +89,7 @@ OPNEx.MModel.RESTserver|REST Microservices to execute CRUD operations on Proveed
     http:localhost:52773/terminal/
     ```
 
-    As you can see, I'm **not using** the _load-balancer port 20080_. WebTerminal needs to connect directly to the IRIS instance you want to work with, so you would need to put there the port randomly assigned by docker to your instance.
+   As you can see, I'm **not using** the _load-balancer port 20080_. WebTerminal needs to connect directly to the IRIS instance you want to work with, so you would need to put there the port randomly assigned by docker to your instance.
 5) Check the REST services for OPNEx-MModel sample, with Postman or making use of URLs provided above
     - For example, try to generate records of new Proveedores and then get one of them by ID.
     - If you test _Echo Test_ service, you will see that the request is served each time by a different APP server
@@ -112,4 +112,5 @@ _**Happy Coding!**_
 
 
 > _To get this project done I've made use of several other contributions from our Community/OpenExchange, so thanks to [Nikita Savchenko](https://openexchange.intersystems.com/user/Nikita%20Savchenko/Ws85ayrkFj6ovsddjFZmVWH8k8) for developing so great app like WebTerminal, [Henry Hamon Pereira](https://openexchange.intersystems.com/user/Henry%20Hamon%20Pereira/wq1IdSjT39T5KZ5LgDh3uwi08sY) who develop Restforms2 framework and [Anton Gnibeda](https://openexchange.intersystems.com/user/Anton%20Gnibeda/UlbMrfpAWTlTMKDRG2GNXUSSHQ) who gave Restforms2 a beautiful face, [Evgeny Shvarov](https://openexchange.intersystems.com/user/Evgeny%20Shvarov/PsVoekohQP54VMJhkXmYMe96mPo) for building ZPM that makes thinks so easy. Specially **BIG THANKS** to [Robert Cemper](https://openexchange.intersystems.com/user/Robert%20Cemper/v2WPTpUS8nGmGLNs612I7IeKRzc) from who I borrowed [IRIS-easy-ECP-workbench](https://openexchange.intersystems.com/package/IRIS-easy-ECP-workbench) as a starting point, and [Pierre-Yves Duquesnoy](https://openexchange.intersystems.com/user/Pierre-Yves%20Duquesnoy/t8U64GJU8G2pS6nd7s124mRFUV0) who helped me contribuiting to this project with a simple LoadBalancer configuration based on our WebGateway_
+
 
