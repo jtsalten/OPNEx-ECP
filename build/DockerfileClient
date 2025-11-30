@@ -1,7 +1,8 @@
-ARG IMAGE=containers.intersystems.com/intersystems/iris:2022.1.0.209.0
+
+ARG IMAGE=containers.intersystems.com/intersystems/iris:latest-em
 ARG TYPE=client
-#ARG IMAGE=containers.intersystems.com/intersystems/iris:2020.1.1.408.0
 FROM $IMAGE
+
 USER root   
 
 COPY  ECP_iris.key /usr/irissys/mgr/iris.key
@@ -9,8 +10,9 @@ COPY  ECP_iris.key /usr/irissys/mgr/iris.key
 WORKDIR /opt/irisapp
 
 RUN chmod 666 /usr/irissys/mgr/iris.key \
-    && chown irisowner:irisowner /opt/irisapp \
-    && rm /usr/irissys/mgr/messages.log    
+ && chown irisowner:irisowner /opt/irisapp \
+ && rm /usr/irissys/mgr/messages.log    
+      
 
 USER irisowner
 
@@ -31,3 +33,9 @@ SHELL [ "./irissession.sh" ]
 RUN \
 Do $system.OBJ.Load("/opt/irisapp/iris-script.mac","ck") \
 set sc = $$^irisscript("client")
+
+#USER root
+#SHELL ["/bin/bash", "-c"]
+
+#RUN rm -rf /opt/irisapp/*
+

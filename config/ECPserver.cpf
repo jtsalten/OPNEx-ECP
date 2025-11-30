@@ -3,3 +3,4 @@ USER=ECPDATA,USER
 
 [config]
 MaxServerConn=10
+globals=0,0,512,0,0,0

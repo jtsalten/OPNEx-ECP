@@ -43,6 +43,9 @@ Client()
     write !,"Loading ZPM module..."
     Do $System.OBJ.LoadDir("/opt/irisapp/zpm/","cuk")
 
+    write !,"Enabling community repository and map IPM to all namespaces..."
+    zpm "enable -community"
+    
     write !,"Installing additional modules in USER..."
     zpm "install webterminal -v":1
     zpm "install restforms2 -v":1 

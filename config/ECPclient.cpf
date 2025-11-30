@@ -9,3 +9,4 @@ USER=ECPDATA,USER
  
 [config]
 MaxServers=2
+globals=0,0,256,0,0,0

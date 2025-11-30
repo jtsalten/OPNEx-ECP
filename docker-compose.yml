@@ -1,4 +1,3 @@
-version: '3.6'
 services:
   server:
     hostname: server
@@ -7,7 +6,6 @@ services:
       dockerfile: DockerfileServer
     image: ecpserver:latest
     container_name: ecpserver
-    command: --check-caps false
     restart: always
     ports: 
       - 1972
@@ -16,15 +14,17 @@ services:
     environment:
       - ISC_CPF_MERGE_FILE=/opt/irisapp/config/ECPserver.cpf
     volumes:
-      - ./:/opt/irisapp
-  client:
-    hostname: client
+      - ./iris-shared:/opt/irisapp/iris-shared
+      - ./config:/opt/irisapp/config
+    #command: --check-caps false -a /iris-shared/configure.sh
+    command: --check-caps false
+  client1:
+    hostname: client1
     build:
       context: ./build
       dockerfile: DockerfileClient
     image: ecpclient:latest
     container_name: ecpclient1
-    command: --check-caps false
     restart: always
     depends_on:
       - server
@@ -35,16 +35,18 @@ services:
     environment:
       - ISC_CPF_MERGE_FILE=/opt/irisapp/config/ECPclient.cpf
     volumes:
-      - ./:/opt/irisapp
+      - ./iris-shared:/opt/irisapp/iris-shared
+      - ./config:/opt/irisapp/config
+    #command: --check-caps false -a /iris-shared/configure.sh
+    command: --check-caps false
   client2:
     hostname: client2
     image: ecpclient:latest
     container_name: ecpclient2
-    command: --check-caps false
     restart: always
     depends_on:
       - server
-      - client
+      - client1
     ports: 
       - 1972
       - 52773
@@ -52,45 +54,91 @@ services:
     environment:
       - ISC_CPF_MERGE_FILE=/opt/irisapp/config/ECPclient.cpf
     volumes:
-      - ./:/opt/irisapp
-  client3:
-    hostname: client3
-    image: ecpclient:latest
-    container_name: ecpclient3
+      - ./iris-shared:/opt/irisapp/iris-shared
+      - ./config:/opt/irisapp/config
+    #command: --check-caps false -a /iris-shared/configure.sh
     command: --check-caps false
-    restart: always
-    depends_on:
-      - server
-      - client2
-    ports: 
-      - 1972
-      - 52773
-      - 53773
-    environment:
-      - ISC_CPF_MERGE_FILE=/opt/irisapp/config/ECPclient.cpf
-    volumes:
-      - ./:/opt/irisapp
   webserver:
     hostname: webserver
-    image: containers.intersystems.com/intersystems/webgateway:2021.2.0.617.0
+    image: containers.intersystems.com/intersystems/webgateway:latest-em
     container_name: loadbalancer
     init: true
     restart: on-failure
     depends_on:
       - server
-      - client
+      - client1
       - client2
-      - client3
     ports:
       - '20080:80'
     volumes:
-      - webconfig:/config.d
-      - ./webgatewayconfig:/websetup
+      - loadbalancer:/config.d
+      - ./webgatewayconfig/loadbalancer:/websetup
     environment:
       - ISC_DATA_DIRECTORY=/config.d
       - ISC_CSP_INI_FILE=/websetup/CSP.ini
       - ISC_CSP_CONF_FILE=/websetup/CSP.conf
     command: 
       - /bin/bash -c "/configHttpd.sh && apache2ctl start" 
+  wsdataserver:
+    hostname: wsdataserver
+    image: containers.intersystems.com/intersystems/webgateway:latest-em
+    container_name: wsdataserver
+    init: true
+    restart: on-failure
+    depends_on:
+      - server
+    ports:
+      - '20090:80'
+    volumes:
+      - wsdataserver:/config.d
+      - ./webgatewayconfig/wsdataserver:/websetup
+    environment:
+      - ISC_DATA_DIRECTORY=/config.d
+      - ISC_CSP_INI_FILE=/websetup/CSP.ini
+      - ISC_CSP_CONF_FILE=/websetup/CSP.conf
+    command: 
+      - /bin/bash -c "/configHttpd.sh && apache2ctl start"
+
+  wsclient1:
+    hostname: wsclient1
+    image: containers.intersystems.com/intersystems/webgateway:latest-em
+    container_name: wsclient1
+    init: true
+    restart: on-failure
+    depends_on:
+      - client1
+    ports:
+      - '20081:80'
+    volumes:
+      - wsclient1:/config.d
+      - ./webgatewayconfig/wsclient1:/websetup
+    environment:
+      - ISC_DATA_DIRECTORY=/config.d
+      - ISC_CSP_INI_FILE=/websetup/CSP.ini
+      - ISC_CSP_CONF_FILE=/websetup/CSP.conf
+    command: 
+      - /bin/bash -c "/configHttpd.sh && apache2ctl start"
+ # wsclient2:
+ #   hostname: wsclient2
+ #   image: containers.intersystems.com/intersystems/webgateway:latest-em
+ #   container_name: wsclient2
+ #   init: true
+ #   restart: on-failure
+ #   depends_on:
+ #     - client2
+ #   ports:
+ #     - '20082:80'
+ #   volumes:
+ #     - wsclient2:/config.d
+ #     - ./webgatewayconfig/wsclient2:/websetup
+ #   environment:
+ #     - ISC_DATA_DIRECTORY=/config.d
+ #     - ISC_CSP_INI_FILE=/websetup/CSP.ini
+ #     - ISC_CSP_CONF_FILE=/websetup/CSP.conf
+ #   command: 
+ #     - /bin/bash -c "/configHttpd.sh && apache2ctl start"
 volumes:
-  webconfig: ~
+  loadbalancer: ~
+  wsclient1: ~
+  wsclient2: ~
+  wsdataserver: ~

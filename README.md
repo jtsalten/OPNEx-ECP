@@ -83,7 +83,7 @@ OPNEx.MModel.RESTserver|REST Microservices to execute CRUD operations on Proveed
 
     You should see the login page to your _Restforms-ui_ app. Login as superuser you'll see all the Forms you have access to. There it's one for Proveedor class (included in this small sample) plus others that _Restforms2_ installs by default as an example.
 4) Check Webterminal:
-
+> <span style="color:red">[NOV-2025] Webterminal is not working as it's set up in this project. Once I discover why I'll fix it</span>
     ```http
     http:localhost:52773/terminal/
     ```
