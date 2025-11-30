@@ -83,7 +83,8 @@ OPNEx.MModel.RESTserver|REST Microservices to execute CRUD operations on Proveed
 
     You should see the login page to your _Restforms-ui_ app. Login as superuser you'll see all the Forms you have access to. There it's one for Proveedor class (included in this small sample) plus others that _Restforms2_ installs by default as an example.
 4) Check Webterminal:
-> <span style="color:red">[NOV-2025] Webterminal is not working as it's set up in this project. Once I discover why I'll fix it</span>
+> **[NOV-2025]** Webterminal is not working as it's set up in this project. Once I discover why I'll fix it
+
     ```http
     http:localhost:52773/terminal/
     ```
@@ -111,3 +112,4 @@ _**Happy Coding!**_
 
 
 > _To get this project done I've made use of several other contributions from our Community/OpenExchange, so thanks to [Nikita Savchenko](https://openexchange.intersystems.com/user/Nikita%20Savchenko/Ws85ayrkFj6ovsddjFZmVWH8k8) for developing so great app like WebTerminal, [Henry Hamon Pereira](https://openexchange.intersystems.com/user/Henry%20Hamon%20Pereira/wq1IdSjT39T5KZ5LgDh3uwi08sY) who develop Restforms2 framework and [Anton Gnibeda](https://openexchange.intersystems.com/user/Anton%20Gnibeda/UlbMrfpAWTlTMKDRG2GNXUSSHQ) who gave Restforms2 a beautiful face, [Evgeny Shvarov](https://openexchange.intersystems.com/user/Evgeny%20Shvarov/PsVoekohQP54VMJhkXmYMe96mPo) for building ZPM that makes thinks so easy. Specially **BIG THANKS** to [Robert Cemper](https://openexchange.intersystems.com/user/Robert%20Cemper/v2WPTpUS8nGmGLNs612I7IeKRzc) from who I borrowed [IRIS-easy-ECP-workbench](https://openexchange.intersystems.com/package/IRIS-easy-ECP-workbench) as a starting point, and [Pierre-Yves Duquesnoy](https://openexchange.intersystems.com/user/Pierre-Yves%20Duquesnoy/t8U64GJU8G2pS6nd7s124mRFUV0) who helped me contribuiting to this project with a simple LoadBalancer configuration based on our WebGateway_
+
