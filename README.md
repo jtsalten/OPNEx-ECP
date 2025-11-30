@@ -83,13 +83,14 @@ OPNEx.MModel.RESTserver|REST Microservices to execute CRUD operations on Proveed
 
     You should see the login page to your _Restforms-ui_ app. Login as superuser you'll see all the Forms you have access to. There it's one for Proveedor class (included in this small sample) plus others that _Restforms2_ installs by default as an example.
 4) Check Webterminal:
-> **[NOV-2025]** Webterminal is not working as it's set up in this project. Once I discover why I'll fix it
+   
+    > **[NOV-2025]** Webterminal is not working as it's set up in this project. Once I discover why I'll fix it
 
     ```http
-    http:localhost:52773/terminal/
-    ```
+    http://localhos:52773/terminal/
+    ``` 
 
-   As you can see, I'm **not using** the _load-balancer port 20080_. WebTerminal needs to connect directly to the IRIS instance you want to work with, so you would need to put there the port randomly assigned by docker to your instance.
+    As you can see, I'm **not using** the _load-balancer port 20080_. WebTerminal needs to connect directly to the IRIS instance you want to work with, so you would need to put there the port randomly assigned by docker to your instance.
 5) Check the REST services for OPNEx-MModel sample, with Postman or making use of URLs provided above
     - For example, try to generate records of new Proveedores and then get one of them by ID.
     - If you test _Echo Test_ service, you will see that the request is served each time by a different APP server
