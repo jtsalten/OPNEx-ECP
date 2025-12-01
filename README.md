@@ -18,8 +18,8 @@ As part of the installation, each ECP APP Server will start with the following f
 - Restforms2-ui
 - OPNEx-MModel
 
-_(*) Except for OPNEx-MModel, you can find these apps in [Open Exchange](https://openexchange.intersystems.com/)_
-_(**) The project includes the last IPM/ZPM version as of today, but it's evolving, if you want to use the most current (when you're playing with this) go to OpenExchange, download the xml of the IPM version you want, and replace the one included in this repo._
+_(*) Except for OPNEx-MModel, you can find these apps in [Open Exchange](https://openexchange.intersystems.com/)
+(**) The project includes the last IPM/ZPM version as of today, but it's evolving, if you want to use the most current (when you're playing with this) go to OpenExchange, download the xml of the IPM version you want, and replace the one included in this repo._
 
 OPNEx-MModel could be your own app. It's just a small sample for this project, to demonstrate IRIS features related to Multi-Model. It contains the following classes:
 
@@ -120,6 +120,7 @@ _**Happy Coding!**_
 
 
 > _To get this project done I've made use of several other contributions from our Community/OpenExchange, so thanks to [Henry Hamon Pereira](https://openexchange.intersystems.com/user/Henry%20Hamon%20Pereira/wq1IdSjT39T5KZ5LgDh3uwi08sY) who develop Restforms2 framework and [Anton Gnibeda](https://openexchange.intersystems.com/user/Anton%20Gnibeda/UlbMrfpAWTlTMKDRG2GNXUSSHQ) who gave Restforms2 a beautiful face, [Evgeny Shvarov](https://openexchange.intersystems.com/user/Evgeny%20Shvarov/PsVoekohQP54VMJhkXmYMe96mPo) for building ZPM that makes thinks so easy. Specially **BIG THANKS** to [Robert Cemper](https://openexchange.intersystems.com/user/Robert%20Cemper/v2WPTpUS8nGmGLNs612I7IeKRzc) from who I borrowed [IRIS-easy-ECP-workbench](https://openexchange.intersystems.com/package/IRIS-easy-ECP-workbench) as a starting point, and [Pierre-Yves Duquesnoy](https://openexchange.intersystems.com/user/Pierre-Yves%20Duquesnoy/t8U64GJU8G2pS6nd7s124mRFUV0) who helped me contribuiting to this project with a simple LoadBalancer configuration based on our WebGateway_
+
 
 
 
