@@ -118,25 +118,25 @@ services:
       - ISC_CSP_CONF_FILE=/websetup/CSP.conf
     command: 
       - /bin/bash -c "/configHttpd.sh && apache2ctl start"
- # wsclient2:
- #   hostname: wsclient2
- #   image: containers.intersystems.com/intersystems/webgateway:latest-em
- #   container_name: wsclient2
- #   init: true
- #   restart: on-failure
- #   depends_on:
- #     - client2
- #   ports:
- #     - '20082:80'
- #   volumes:
- #     - wsclient2:/config.d
- #     - ./webgatewayconfig/wsclient2:/websetup
- #   environment:
- #     - ISC_DATA_DIRECTORY=/config.d
- #     - ISC_CSP_INI_FILE=/websetup/CSP.ini
- #     - ISC_CSP_CONF_FILE=/websetup/CSP.conf
- #   command: 
- #     - /bin/bash -c "/configHttpd.sh && apache2ctl start"
+  wsclient2:
+    hostname: wsclient2
+    image: containers.intersystems.com/intersystems/webgateway:latest-em
+    container_name: wsclient2
+    init: true
+    restart: on-failure
+    depends_on:
+      - client2
+    ports:
+      - '20082:80'
+    volumes:
+      - wsclient2:/config.d
+      - ./webgatewayconfig/wsclient2:/websetup
+    environment:
+      - ISC_DATA_DIRECTORY=/config.d
+      - ISC_CSP_INI_FILE=/websetup/CSP.ini
+      - ISC_CSP_CONF_FILE=/websetup/CSP.conf
+    command: 
+      - /bin/bash -c "/configHttpd.sh && apache2ctl start"
 volumes:
   loadbalancer: ~
   wsclient1: ~

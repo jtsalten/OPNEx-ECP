@@ -87,7 +87,7 @@ OPNEx.MModel.RESTserver|REST Microservices to execute CRUD operations on Proveed
     > **[NOV-2025]** Webterminal is not working as it's set up in this project. Once I discover why I'll fix it
 
     ```http
-    http://localhos:52773/terminal/
+    http://localhost:52773/terminal/
     ``` 
 
     As you can see, I'm **not using** the _load-balancer port 20080_. WebTerminal needs to connect directly to the IRIS instance you want to work with, so you would need to put there the port randomly assigned by docker to your instance.
