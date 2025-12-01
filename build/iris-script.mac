@@ -1,4 +1,4 @@
-ROUTINE irisscript [Type=MAC]
+ROUTINE irisscript
 irisscript(type)
   do Init()
   return $case($zconvert($get(type,""),"l"),"server":$$Server(),"client":$$Client(),:1)
@@ -54,6 +54,6 @@ Client()
     write !,"Installing OPNEX-MMODEL sample... Here you could add your own apps..."
     zpm "load /opt/irisapp/opnex-mmodel -v":1
     write !,"Loading ObjectScript code from ./src (if any)..."
-    Do $System.OBJ.ImportDir("/opt/irisapp/src",,"cuk",,1)
+    Do $System.OBJ.Import("/opt/irisapp/src","/compile=1")
     write !,"DONE!"
     return 1
