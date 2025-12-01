@@ -8,9 +8,9 @@ Init()
     set ecp="%service_ecp"
     set set("Enabled")=1
     set sc=##class(Security.Services).Modify(ecp,.set)
-
     write !,"Loading ZSTART code..."
-    Do $System.OBJ.ImportDir("/opt/irisapp/ecpsetup",,"cuk",,1)
+    Do $System.OBJ.Import("/opt/irisapp/ecpsetup","/compile=1")
+
     return 1
 Server()
     write !,"Creating DB ECPDATA..."
@@ -30,24 +30,22 @@ Server()
     set tSC = tDB.Mount()
     write !,"Configuring ecpdata DDBB in iris.cpf..."
     set sc=##class(Config.Databases).Create(tDBname,.Properties)
-
     // OPTIONAL FROM HERE ON
     // Load ZPM
     ZN "USER"
     write !,"Loading ZPM module..."
-    Do $System.OBJ.LoadDir("/opt/irisapp/zpm/","cuk")
+    Do $System.OBJ.Import("/opt/irisapp/zpm/","/compile=1")
     return 1
 Client()
     // OPTIONAL FROM HERE ON
     ZN "USER"
     write !,"Loading ZPM module..."
-    Do $System.OBJ.LoadDir("/opt/irisapp/zpm/","cuk")
+    Do $System.OBJ.Import("/opt/irisapp/zpm/","/compile=1")
 
     write !,"Enabling community repository and map IPM to all namespaces..."
     zpm "enable -community"
     
     write !,"Installing additional modules in USER..."
-    zpm "install webterminal -v":1
     zpm "install restforms2 -v":1 
     zpm "install restforms2-ui -v":1 
     

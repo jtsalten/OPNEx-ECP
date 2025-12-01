@@ -3,7 +3,9 @@ services:
     hostname: server
     build: 
       context: ./build
-      dockerfile: DockerfileServer
+      dockerfile: Dockerfile
+      args:
+        TYPE: server
     image: ecpserver:latest
     container_name: ecpserver
     restart: always
@@ -16,13 +18,14 @@ services:
     volumes:
       - ./iris-shared:/opt/irisapp/iris-shared
       - ./config:/opt/irisapp/config
-    #command: --check-caps false -a /iris-shared/configure.sh
     command: --check-caps false
   client1:
     hostname: client1
     build:
       context: ./build
-      dockerfile: DockerfileClient
+      dockerfile: Dockerfile
+      args:
+        TYPE: client
     image: ecpclient:latest
     container_name: ecpclient1
     restart: always
@@ -37,7 +40,6 @@ services:
     volumes:
       - ./iris-shared:/opt/irisapp/iris-shared
       - ./config:/opt/irisapp/config
-    #command: --check-caps false -a /iris-shared/configure.sh
     command: --check-caps false
   client2:
     hostname: client2
@@ -56,7 +58,6 @@ services:
     volumes:
       - ./iris-shared:/opt/irisapp/iris-shared
       - ./config:/opt/irisapp/config
-    #command: --check-caps false -a /iris-shared/configure.sh
     command: --check-caps false
   webserver:
     hostname: webserver
